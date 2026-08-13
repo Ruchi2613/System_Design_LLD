@@ -58,7 +58,7 @@ class PostService:
         if post_id not in self.post_local_db:
             raise ValueError("Post ID does not exist.")
 
-        target_post = self.post_local_db[post_id]
+        target_post = self.post_local_db[post_id] # store post_id through create post fun and send obj of that post-id and then search starts.
         if target_post["UID"] == UID:
             raise ValueError("You cannot like your own post!")
         
