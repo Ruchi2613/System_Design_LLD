@@ -7,15 +7,7 @@ class AccountService:
         # local db as a dictionary to store user data
         self.local_db = {}
 
-    def sign_up(
-        self,
-        un,
-        password,
-        confirm_password,
-        email,
-        phone_number,
-        created_at=None,
-    ):
+    def sign_up(self,un,password,confirm_password,email,phone_number,created_at=None):
         self.username = un
         self.password = password
         self.confirm_password = confirm_password

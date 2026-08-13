@@ -22,12 +22,11 @@ class PostService:
             "post_id": post_id
         }
 
-        self.local_like_db[post_id]= set()
-        self.local_dislike_db[post_id]= set()
+        self.local_like_db[post_id] = set()
+        self.local_dislike_db[post_id] = set()
 
         print("Post created successfully.")
-        return True
-
+        return post_id # this line return post_id not true because in main.py when you check create post in post1_id etc it store post_id that store the generate unique id(uuid) not True
 
     def view_post(self, post_id, UID):
         if post_id not in self.post_local_db:
@@ -52,12 +51,17 @@ class PostService:
     def view_all_posts(self):
         return list(self.post_local_db.values())
 
+    
+    
     def like_post(self, post_id, UID):
         # check if post not exist
         if post_id not in self.post_local_db:
             raise ValueError("Post ID does not exist.")
 
-
+        target_post = self.post_local_db[post_id]
+        if target_post["UID"] == UID:
+            raise ValueError("You cannot like your own post!")
+        
         # check if uid has already like the post
         if UID in self.local_like_db[post_id]:
             raise ValueError("You already liked this post") 
@@ -72,6 +76,10 @@ class PostService:
     def dislike_post(self, post_id, UID):
         if post_id not in self.post_local_db:
             raise ValueError("Post ID does not exist.")
+
+        target_post = self.post_local_db[post_id]
+        if target_post["UID"] == UID:
+            raise ValueError("You cannot like your own post!")
 
         # check if uid has already dislike the post
         if UID in self.local_dislike_db[post_id]:
